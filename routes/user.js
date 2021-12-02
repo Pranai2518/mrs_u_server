@@ -28,7 +28,7 @@ router.route('/add/movie').post(async (req, res) => {
         uid: req.body.uid,
         movieId: req.body.movieId,
         title: req.body.title,
-        rating: req.body.rating,
+        liked: req.body.liked,
         watched: req.body.watched,
         myList: req.body.myList
     }
@@ -52,12 +52,30 @@ router.route('/:uid/movies').get(async (req, res) => {
     res.json(movie)
 })
 
+
+// Update movie 
+router.route('/:uid/movie/:mid').put(async (req, res) => {
+    const uid = req.params.uid
+    const mid = req.params.mid
+    const body = req.body
+    // const data = {
+    //     uid: body.uid,
+    //     movieId: body.movieId,
+    //     title: body.title,
+    //     liked: body.liked,
+    //     watched: body.watched,
+    //     myList: body.myList
+    // }
+    const result = await Movie.findOneAndUpdate({ uid: uid, movieId: mid }, body, { new: true })
+    res.json(result)
+})
+
 //delete movie 
 router.route('/:uid/movie/:mid').delete(async (req, res) => {
     const uid = req.params.uid
     const mid = req.params.mid
     const movie = await Movie.find({ uid: uid, movieId: mid }).deleteOne()
-    res.json({ movieId: req.params.mid })
+    res.json({ movieId: movie })
 })
 
 

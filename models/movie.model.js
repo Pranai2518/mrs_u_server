@@ -5,7 +5,7 @@ const movieSchema = new Schema({
     uid: { type: String, required: true },
     movieId: { type: String },
     title: { type: String },
-    rating: { type: String },
+    liked: { type: Number },
     watched: { type: Boolean },
     myList: { type: Boolean }
 }, { timestamps: true })
